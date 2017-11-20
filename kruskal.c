@@ -22,13 +22,12 @@ typedef struct grafo{
 }Grafo;
 
 int main(int argc,char *argv[]){
-	/* Iremos resolver o exercicio com vertices e arestas a seguir */
-	/*
-	            V1
+/* Iremos resolver o exercicio com vertices e arestas a seguir */
+/*              V1
               / |  \
-	         /  |   \
-	        3   |    \
-           /    |     \
+            /  |   \
+           3   |    \
+          /    |     \
          V2     4      \
          | \    |       \
 		 |  \   |        \  
