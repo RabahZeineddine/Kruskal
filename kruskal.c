@@ -24,25 +24,25 @@ typedef struct grafo{
 int main(int argc,char *argv[]){
 	/* Iremos resolver o exercicio com vertices e arestas a seguir */
 	/*
-		        V1
-			 / |  \
-		     /  |   \
-		    3   |    \
-		   /    |     \
-		 V2     4      \
-		 | \    |       \
+	            V1
+              / |  \
+	         /  |   \
+	        3   |    \
+           /    |     \
+         V2     4      \
+         | \    |       \
 		 |  \   |        \  
 		 |   4  |        V5
-		 8    \ |        /
-		 |	   V3     /
-		 |    /  \     2
-		 |   8    9   /
-		 |  /      \ /
-		V4         V6
-		           /
-				  3
-				 /
-				V7  
+         8    \ |        /
+         |	   V3       /
+         |    /  \     2
+         |   8    9   /
+         |  /      \ /
+        V4         V6
+                   /
+                  3
+                 /
+               V7  
 	*/
 	
 	int V; /* O numero de vertices que o Grafo tem. */
