@@ -21,10 +21,20 @@ typedef struct grafo{
 	Aresta *arestas;
 }Grafo;
 
+typedef struct set{
+	int p;
+	int rank;
+}Set;
+
 /* Assinaturas */
 void criarGrafo(Grafo *G,int V,int A);
 void adicionarAresta(Grafo G,int origem,int destino,int custo);
 void imprimirGrafo(Grafo G,int n);
+void kruskal(Grafo G);
+void MakeSet(int v);
+
+/* Variavel Global Para manter o formato do codigo do Cormen. */
+Set *sets;
 
 
 
@@ -69,6 +79,32 @@ void imprimirGrafo(Grafo G,int n){
   	}
 }
 
+void MakeSet(int v){
+	sets[v].p = v;
+	sets[v].rank = 0;
+}
+
+void kruskal(Grafo G){
+	int a; /* Uma variavel de indice usada para percorrer as arestas. */
+	int i; /* Uma variavel de indice usada para adicionar a aresta no resultado. */
+	int v; /* Uma variavel de indice usasda para percorrer as vertices. */
+	int x; /* Uma variavel usada para salvar o representante da vertice origem de uma aresta. */
+	int y; /* Uma variavel usada para salvar o representante da vertice destino de uma aresta. */
+	
+	Aresta *resultado; /* Um vetor de struct aresta que tera as arestas que nao formam circuito. */
+	
+	resultado = (Aresta*) malloc(sizeof(Aresta) * G.V ); /* Alocar memoria para o resultado, no maximo o tamanho das verticies que temos. */
+	
+	sets = (Set*) malloc(sizeof(Set) * G.V); /* Alocar memoria para os Sets */
+	
+	/* Criar sets para todas as vertices existentes */
+	for( v = 0 ; v < G.V ; v++ )
+		MakeSet(V);
+	
+	
+}	
+
+
 
 int main(int argc,char *argv[]){
 /* Iremos resolver o exercicio com vertices e arestas a seguir */
@@ -112,6 +148,6 @@ int main(int argc,char *argv[]){
   	adicionarAresta(G,5,1,7);
   	
   	imprimirGrafo(G,G.A);
-
-
+  	
+  	kruskal(G);
 }
