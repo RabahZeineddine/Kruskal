@@ -30,8 +30,14 @@ typedef struct set{
 void criarGrafo(Grafo *G,int V,int A);
 void adicionarAresta(Grafo G,int origem,int destino,int custo);
 void imprimirGrafo(Grafo G,int n);
+void mergeSort(Aresta *A, int p, int r);
+void merge(Aresta *A, int p, int q, int r);
+void imprimirSets(int v);
 void kruskal(Grafo G);
 void MakeSet(int v);
+int FindSet(int v);
+void Link(int x,int y);
+void Union(int x,int y);
 
 /* Variavel Global Para manter o formato do codigo do Cormen. */
 Set *sets;
@@ -79,9 +85,81 @@ void imprimirGrafo(Grafo G,int n){
   	}
 }
 
+void mergeSort( Aresta *A, int p, int r) {
+    if (p < r) {
+        int q = (p + r) / 2;
+        mergeSort(A, p, q);
+        mergeSort(A, q + 1, r);
+        merge(A, p, q, r);
+    }
+}
+
+/* Método merge() usado no MergeSort. */
+void merge(Aresta *A, int p, int q, int r) {
+    int i,j,k,n1,n2;
+    
+    n1 = q - p + 1; 
+    n2 = r - q;
+    
+    Aresta L[n1];
+    Aresta R[n2];
+    
+    for (i = 0; i < n1; i++) {
+        L[i] = A[p + i];
+    }
+    for(j = 0; j < n2; j++) {
+        R[j] = A[q + j + 1];
+    }
+    L[ n1 ].custo = 99999999;
+    R[n2].custo = 99999999;
+    
+    i = 0;
+    j = 0;
+    for(k = p; k <= r  ; k++) {
+        if(L[i].custo <= R[j].custo ) {
+            A[k] = L[i];
+            i = i + 1;
+        } else {
+            A[k] = R[j];
+            j = j + 1;
+        }
+    }
+}
+
 void MakeSet(int v){
 	sets[v].p = v;
 	sets[v].rank = 0;
+}
+
+int FindSet(int v){
+  if(v != sets[v].p)
+    sets[v].p = FindSet(sets[v].p);
+  return sets[v].p;
+}
+
+void Link(int x,int y){
+  if(sets[x].rank > sets[y].rank)
+    sets[y].p = x;
+  else{
+    sets[x].p = y;
+    if(sets[x].rank == sets[y].rank)
+      sets[y].rank++;
+  }
+}
+
+void Union(int x, int y){
+  Link(FindSet(x),FindSet(y));
+}
+
+void imprimirSets(int v){
+  int i;
+  printf("\n\nP  : ");
+  for( i = 0 ; i < v; i++)
+   printf("%d ", sets[i].p);
+  printf("\nSet: ");
+  for( i = 0 ; i < v; i++)
+    printf("%d ",i);
+  
 }
 
 void kruskal(Grafo G){
@@ -99,8 +177,32 @@ void kruskal(Grafo G){
 	
 	/* Criar sets para todas as vertices existentes */
 	for( v = 0 ; v < G.V ; v++ )
-		MakeSet(V);
+		MakeSet(v);
 	
+	imprimirSets(G.V); 
+  	 
+	
+	/* Ordenar as arestas usando merge sort, pelo Custo de cada aresta */
+	mergeSort(G.arestas, 0 , G.A - 1);
+	
+	/* Percorrer todas as arestas e verificar se cada aresta forma um circuito ou nao
+		Caso forme um circuito descarta, caso contrario, adiciona no resultado.
+	*/
+	for( a = 0 ; a < G.A ; a++ ){
+		x = FindSet(G.arestas[a].origem);  /* Encontrar o representante da vertice origem da aresta a. */
+		y = FindSet(G.arestas[a].destino); /* Econtrar o representatne da vertice destino da aresta a */
+		
+		if(x != y){
+			resultado[i++] = G.arestas[a];
+			Union(x,y);
+		}
+	}
+	
+	G.arestas = resultado;
+	
+	printf("\n\n Solucao Kruskal \n ");
+	imprimirGrafo(G, i);
+	imprimirSets(G.V); 
 	
 }	
 
@@ -112,7 +214,7 @@ int main(int argc,char *argv[]){
               / |  \
             /   |   \
            3    |    \
-          /     |     \
+          /     |     7
          V2     4      \
          | \    |       \
          |  \   |        \  
@@ -147,7 +249,30 @@ int main(int argc,char *argv[]){
   	adicionarAresta(G,6,7,3);
   	adicionarAresta(G,5,1,7);
   	
+  	printf("\nAntes do Krusakl");
   	imprimirGrafo(G,G.A);
   	
   	kruskal(G);
+  	
+  	/* Apos o Kruskal , o grafo deve ser a seguir */
+  	/*          V1
+              /    \
+            /       \
+           3         \
+          /           7
+         V2            \
+         | \            \
+         |  \            \  
+         |   4           V5
+         8    \          /
+         |     V3       /
+         |             2
+         |            /
+         |           /
+        V4         V6
+                   /
+                  3
+                 /
+               V7  
+	*/
 }
