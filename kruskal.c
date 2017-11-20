@@ -255,7 +255,8 @@ int main(int argc,char *argv[]){
   	kruskal(G);
   	
   	/* Apos o Kruskal , o grafo deve ser a seguir */
-  	/*          V1
+  	/*
+                V1
               /    \
             /       \
            3         \
