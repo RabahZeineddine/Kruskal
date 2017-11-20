@@ -1,5 +1,5 @@
 /*
-	Authores: Beatriz Bonanno, Rabah Zeineddine, Werner Marin
+	Authores: Rabah Zeineddine
 	Date: 20/11/17 14:41
 	Description: Kruskal Code.
 */
