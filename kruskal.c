@@ -24,6 +24,7 @@ typedef struct grafo{
 /* Assinaturas */
 void criarGrafo(Grafo *G,int V,int A);
 void adicionarAresta(Grafo G,int origem,int destino,int custo);
+void imprimirGrafo(Grafo G,int n);
 
 
 
@@ -58,6 +59,17 @@ void adicionarAresta(Grafo G,int origem,int destino, int custo){
 	}
 }
 
+void imprimirGrafo(Grafo G,int n){
+	int i;
+  	
+	printf("\n\n");
+	printf("Origem | Destino | Custo\n");
+  	for( i = 0 ; i < n ; i++ ){
+    	printf("\n  V%d   |   V%d    |   %d",G.arestas[i].origem + 1, G.arestas[i].destino + 1, G.arestas[i].custo);
+  	}
+}
+
+
 int main(int argc,char *argv[]){
 /* Iremos resolver o exercicio com vertices e arestas a seguir */
 /*              V1
@@ -90,5 +102,16 @@ int main(int argc,char *argv[]){
 	criarGrafo(&G,V,A); /* Criar e inicializar o Grafo vazio */
 	
 	adicionarAresta(G,1,2,3); /* Adicionar aresta com Vertice 1 como origem, Vertice 2 como destino e com custo 3*/
+	adicionarAresta(G,2,3,4);
+  	adicionarAresta(G,3,1,4);
+  	adicionarAresta(G,2,4,8);
+  	adicionarAresta(G,4,3,8);
+  	adicionarAresta(G,3,6,9);
+  	adicionarAresta(G,6,5,2);
+  	adicionarAresta(G,6,7,3);
+  	adicionarAresta(G,5,1,7);
+  	
+  	imprimirGrafo(G,G.A);
+
 
 }
