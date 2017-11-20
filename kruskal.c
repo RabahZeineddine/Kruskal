@@ -1,6 +1,5 @@
 /*
-	Name: Rabah Zeineddine
-	Author: Rabah Zeineddine
+	Authores: Beatriz Bonanno, Rabah Zeineddine, Werner Marin
 	Date: 20/11/17 14:41
 	Description: Kruskal Code.
 */
@@ -77,12 +76,15 @@ void adicionarAresta(Grafo G,int origem,int destino, int custo){
 
 void imprimirGrafo(Grafo G,int n){
 	int i;
-  	
-	printf("\n\n");
-	printf("Origem | Destino | Custo\n");
-  	for( i = 0 ; i < n ; i++ ){
-    	printf("\n  V%d   |   V%d    |   %d",G.arestas[i].origem + 1, G.arestas[i].destino + 1, G.arestas[i].custo);
-  	}
+	printf("\n\nVertice Origem    |");
+	for( i = 0 ; i< n ; i++)
+		printf("  V%d ", G.arestas[i].origem + 1 );
+	printf("\nVertice Destino   |");
+	for( i = 0 ; i < n ; i++ )
+		printf("  V%d ", G.arestas[i].destino + 1);
+	printf("\n     Custo        |");
+	for( i = 0 ; i < n ; i++)
+		printf("  %d  ", G.arestas[i].custo);
 }
 
 void mergeSort( Aresta *A, int p, int r) {
@@ -155,10 +157,10 @@ void imprimirSets(int v){
   int i;
   printf("\n\nP  : ");
   for( i = 0 ; i < v; i++)
-   printf("%d ", sets[i].p);
+   printf(" %d ", sets[i].p);
   printf("\nSet: ");
   for( i = 0 ; i < v; i++)
-    printf("%d ",i);
+    printf(" %d ",i);
   
 }
 
@@ -179,6 +181,7 @@ void kruskal(Grafo G){
 	for( v = 0 ; v < G.V ; v++ )
 		MakeSet(v);
 	
+	printf("\n\nTabela dos conjuntos inicialmente inicializados.");
 	imprimirSets(G.V); 
   	 
 	
@@ -199,9 +202,10 @@ void kruskal(Grafo G){
 	}
 	
 	G.arestas = resultado;
-	
-	printf("\n\n Solucao Kruskal \n ");
+	printf("\n\nApos a execucao do algoritmo Kruskal");
+	printf("\n\nArestas e Vertices da arvore geradora");
 	imprimirGrafo(G, i);
+	printf("\n\nTabela dos conjuntos");
 	imprimirSets(G.V); 
 	
 }	
@@ -224,7 +228,7 @@ int main(int argc,char *argv[]){
          |    /  \     2
          |   8    9   /
          |  /      \ /
-        V4         V6
+         V4         V6
                    /
                   3
                  /
@@ -249,8 +253,10 @@ int main(int argc,char *argv[]){
   	adicionarAresta(G,6,7,3);
   	adicionarAresta(G,5,1,7);
   	
-  	printf("\nAntes do Krusakl");
+  	printf("\nArestas e vertices pre-cadastrados antes da execucao do algoritmo Kruskal.");
   	imprimirGrafo(G,G.A);
+  	printf("\n\n___________________________________________________________________________");
+  	printf("\n\nExecucao do algoritmo Kruskal.");
   	
   	kruskal(G);
   	
@@ -270,7 +276,7 @@ int main(int argc,char *argv[]){
          |             2
          |            /
          |           /
-        V4         V6
+         V4         V6
                    /
                   3
                  /
