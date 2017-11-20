@@ -25,15 +25,15 @@ int main(int argc,char *argv[]){
 /* Iremos resolver o exercicio com vertices e arestas a seguir */
 /*              V1
               / |  \
-            /  |   \
-           3   |    \
-          /    |     \
+            /   |   \
+           3    |    \
+          /     |     \
          V2     4      \
          | \    |       \
-		 |  \   |        \  
-		 |   4  |        V5
+         |  \   |        \  
+         |   4  |        V5
          8    \ |        /
-         |	   V3       /
+         |     V3       /
          |    /  \     2
          |   8    9   /
          |  /      \ /
