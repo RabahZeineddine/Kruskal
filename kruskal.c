@@ -21,7 +21,9 @@ typedef struct grafo{
 	Aresta *arestas;
 }Grafo;
 
+/* Assinaturas */
 void criarGrafo(Grafo *G,int V,int A);
+void adicionarAresta(Grafo G,int origem,int destino,int custo);
 
 
 
@@ -41,6 +43,19 @@ void criarGrafo(Grafo *G,int V,int A){
 	(*G).V = V;
 	(*G).A = A;
 	(*G).arestas = arestas;
+}
+
+void adicionarAresta(Grafo G,int origem,int destino, int custo){
+	int i;
+	
+	/* Percorrer ate a ultima posicao sem aresta inicializada. */
+	for( i = 0 ; i < G.A && G.arestas[i].origem != -1; i++);
+	
+	if( i < G.A ){
+		G.arestas[i].origem = origem - 1; /* -1 para comecar do 0, para que o FindSet funciona com sets de 0. */
+		G.arestas[i].destino = destino - 1;
+		G.arestas[i].custo = custo;
+	}
 }
 
 int main(int argc,char *argv[]){
@@ -74,5 +89,6 @@ int main(int argc,char *argv[]){
 	
 	criarGrafo(&G,V,A); /* Criar e inicializar o Grafo vazio */
 	
+	adicionarAresta(G,1,2,3); /* Adicionar aresta com Vertice 1 como origem, Vertice 2 como destino e com custo 3*/
 
 }
